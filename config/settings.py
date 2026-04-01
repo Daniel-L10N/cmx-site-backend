@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-cmx-site-backend-key-chang
 DEBUG = not PRODUCTION
 
 if PRODUCTION:
-    ALLOWED_HOSTS = ['api.controlmodularmx.com', 'controlmodularmx.com', 'localhost']
+    ALLOWED_HOSTS = ['cmxserver.curlew-vector.ts.net', 'api.controlmodularmx.com', 'controlmodularmx.com', 'localhost']
     # Seguridad de Cookies y SSL
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
@@ -109,6 +109,7 @@ if PRODUCTION:
     CORS_ALLOWED_ORIGINS = [
         "https://controlmodularmx.com",
         "https://www.controlmodularmx.com",
+        "https://controlmodularmx.vercel.app",
     ]
 else:
     CORS_ALLOW_ALL_ORIGINS = True
