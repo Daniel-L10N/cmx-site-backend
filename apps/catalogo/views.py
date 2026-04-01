@@ -1,7 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from django.shortcuts import get_object_object_or_404
+from django.shortcuts import get_object_or_404
 from .models import Categoria, Producto
 from .serializers import (
     CategoriaSerializer, 
@@ -27,6 +27,7 @@ class ProductoViewSet(viewsets.ReadOnlyModelViewSet):
     def por_sku(self, request, sku=None):
         """Permite buscar un producto directamente por su SKU (Útil para técnicos)"""
         producto = get_object_or_404(Producto, sku=sku, disponible=True)
+
         serializer = ProductoDetalleSerializer(producto, context={'request': request})
         return Response(serializer.data)
 
