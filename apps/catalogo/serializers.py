@@ -1,10 +1,25 @@
 from rest_framework import serializers
 from .models import Categoria, Producto, Especificacion, ImagenProducto
 
+BASE_URL = 'https://cmxserver.curlew-vector.ts.net/cmx/media/'
+
+def build_media_url(relative_url):
+    """Construye URL absoluta con HTTPS"""
+    if not relative_url:
+        return None
+    if relative_url.startswith('http'):
+        return relative_url
+    return BASE_URL + relative_url
+
 class CategoriaSerializer(serializers.ModelSerializer):
+    imagen_portada = serializers.SerializerMethodField()
+    
     class Meta:
         model = Categoria
         fields = ['id', 'nombre', 'slug', 'descripcion_seo', 'imagen_portada']
+    
+    def get_imagen_portada(self, obj):
+        return build_media_url(str(obj.imagen_portada)) if obj.imagen_portada else None
 
 class EspecificacionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,9 +27,14 @@ class EspecificacionSerializer(serializers.ModelSerializer):
         fields = ['clave', 'valor']
 
 class ImagenProductoSerializer(serializers.ModelSerializer):
+    imagen = serializers.SerializerMethodField()
+    
     class Meta:
         model = ImagenProducto
         fields = ['imagen', 'alt_text', 'es_principal']
+    
+    def get_imagen(self, obj):
+        return build_media_url(str(obj.imagen)) if obj.imagen else None
 
 class ProductoListSerializer(serializers.ModelSerializer):
     """Serializer ligero para listados de productos"""
@@ -29,8 +49,7 @@ class ProductoListSerializer(serializers.ModelSerializer):
         if not img:
             img = obj.imagenes.first()
         if img:
-            request = self.context.get('request')
-            return request.build_absolute_uri(img.imagen.url) if request else img.imagen.url
+            return build_media_url(str(img.imagen))
         return None
 
 class ProductoDetalleSerializer(serializers.ModelSerializer):

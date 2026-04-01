@@ -123,6 +123,8 @@ if PRODUCTION:
         "https://www.controlmodularmx.com",
         "https://controlmodularmx.vercel.app",
     ]
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    MEDIA_URL = 'https://cmxserver.curlew-vector.ts.net/cmx/media/'
 else:
     CORS_ALLOW_ALL_ORIGINS = True
 
