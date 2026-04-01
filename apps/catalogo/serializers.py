@@ -39,10 +39,16 @@ class ImagenProductoSerializer(serializers.ModelSerializer):
 class ProductoListSerializer(serializers.ModelSerializer):
     """Serializer ligero para listados de productos"""
     imagen_principal = serializers.SerializerMethodField()
+    categoria = serializers.SerializerMethodField()
 
     class Meta:
         model = Producto
-        fields = ['id', 'nombre', 'slug', 'sku', 'precio', 'moneda', 'estado_stock', 'imagen_principal', 'descripcion_corta']
+        fields = [
+            'id', 'nombre', 'slug', 'sku', 'precio', 'moneda', 
+            'estado_stock', 'disponible', 'descripcion_corta',
+            'meta_titulo', 'meta_descripcion', 'imagen_principal',
+            'categoria', 'fecha_actualizacion'
+        ]
 
     def get_imagen_principal(self, obj):
         img = obj.imagenes.filter(es_principal=True).first()
@@ -51,6 +57,13 @@ class ProductoListSerializer(serializers.ModelSerializer):
         if img:
             return build_media_url(str(img.imagen))
         return None
+    
+    def get_categoria(self, obj):
+        return {
+            'id': obj.categoria.id,
+            'nombre': obj.categoria.nombre,
+            'slug': obj.categoria.slug
+        }
 
 class ProductoDetalleSerializer(serializers.ModelSerializer):
     """Serializer robusto para la página de detalle (SEO Agresivo)"""
@@ -62,8 +75,9 @@ class ProductoDetalleSerializer(serializers.ModelSerializer):
         model = Producto
         fields = [
             'id', 'categoria', 'nombre', 'slug', 'sku', 'precio', 'moneda', 
-            'estado_stock', 'meta_titulo', 'meta_descripcion', 
+            'estado_stock', 'disponible',
+            'meta_titulo', 'meta_descripcion', 
             'descripcion_corta', 'descripcion_detallada', 
             'modelos_compatibles', 'numeros_parte_oem',
-            'especificaciones', 'imagenes', 'fecha_actualizacion'
+            'especificaciones', 'imagenes', 'fecha_creacion', 'fecha_actualizacion'
         ]
