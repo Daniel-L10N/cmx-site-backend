@@ -15,6 +15,16 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-cmx-site-backend-key-chang
 
 DEBUG = not PRODUCTION
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://cmxserver.curlew-vector.ts.net',
+    'http://cmxserver.curlew-vector.ts.net',
+    'https://controlmodularmx.com',
+    'https://www.controlmodularmx.com',
+    'https://api.controlmodularmx.com',
+]
+
+FORCE_SCRIPT_NAME = '/cmx'
+
 if PRODUCTION:
     ALLOWED_HOSTS = ['cmxserver.curlew-vector.ts.net', 'api.controlmodularmx.com', 'controlmodularmx.com', 'localhost']
     # Seguridad de Cookies y SSL
@@ -55,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'apps.core.middleware.DisableCSRFForAdmin',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -62,7 +73,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,3 +127,5 @@ else:
     CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
+
+FORCE_SCRIPT_NAME = '/cmx'
