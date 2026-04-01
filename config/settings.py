@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     
     # Propias
     'apps.catalogo',
+    'apps.empresa',
 ]
 
 MIDDLEWARE = [
