@@ -34,6 +34,7 @@ urlpatterns = [
     path('cmx/admin/login/', cmx_admin_login, name='cmx_admin_login'),
     path('cmx/admin/', admin.site.urls),
     path('cmx/api/catalogo/', include('apps.catalogo.urls')),
+    path('cmx/api/empresa/', include('apps.empresa.urls')),
 ]
 
 if settings.DEBUG:
