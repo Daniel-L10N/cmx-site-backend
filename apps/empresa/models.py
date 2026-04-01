@@ -6,6 +6,7 @@ class InfoEmpresa(models.Model):
     hero_descripcion = models.TextField(help_text="Texto principal bajo el título")
     historia_titulo = models.CharField(max_length=200, default="Nuestra misión en la planta")
     historia_cuerpo = models.TextField(help_text="Relato cercano sobre cómo nació Control Modular MX")
+    historia_imagen = models.ImageField(upload_to='empresa/', blank=True, null=True, help_text="Imagen lateral de la sección historia")
     
     # Metadatos para SEO
     meta_titulo = models.CharField(max_length=70, blank=True)

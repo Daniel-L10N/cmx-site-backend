@@ -3,6 +3,17 @@ from .models import InfoEmpresa, MiembroEquipo, Valor, Estadistica
 
 @admin.register(InfoEmpresa)
 class InfoEmpresaAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Hero Section', {
+            'fields': ('hero_titulo', 'hero_descripcion')
+        }),
+        ('Nuestra Historia', {
+            'fields': ('historia_titulo', 'historia_cuerpo', 'historia_imagen')
+        }),
+        ('SEO', {
+            'fields': ('meta_titulo', 'meta_descripcion')
+        }),
+    )
     def has_add_permission(self, request):
         # Evita crear más de una configuración global
         return not InfoEmpresa.objects.exists()

@@ -25,7 +25,7 @@ class InfoEmpresaSerializer(serializers.ModelSerializer):
         model = InfoEmpresa
         fields = [
             'hero_titulo', 'hero_descripcion', 
-            'historia_titulo', 'historia_cuerpo',
+            'historia_titulo', 'historia_cuerpo', 'historia_imagen',
             'meta_titulo', 'meta_descripcion',
             'equipo', 'valores', 'stats'
         ]
