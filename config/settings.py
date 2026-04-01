@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     # Propias
     'apps.catalogo',
     'apps.empresa',
+    'apps.contacto',
 ]
 
 MIDDLEWARE = [

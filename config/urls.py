@@ -29,12 +29,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/catalogo/', include('apps.catalogo.urls')),
     path('api/empresa/', include('apps.empresa.urls')),
+    path('api/contacto/', include('apps.contacto.urls')),
     
     # CMX prefixed routes
     path('cmx/admin/login/', cmx_admin_login, name='cmx_admin_login'),
     path('cmx/admin/', admin.site.urls),
     path('cmx/api/catalogo/', include('apps.catalogo.urls')),
     path('cmx/api/empresa/', include('apps.empresa.urls')),
+    path('cmx/api/contacto/', include('apps.contacto.urls')),
 ]
 
 if settings.DEBUG:
